@@ -1,27 +1,27 @@
 const outputScreen = document.getElementById('output-screen');
 const userInput = document.getElementById('user-input');
 
-let gameState = null; // Used for interactive games like number guessing
+let gameState = null; 
 let secretCode = null;
 
 // Focus input whenever clicking anywhere on the terminal window
 document.addEventListener('click', () => userInput.focus());
+
+// Function to handle clicks from the no-code button panel
+function triggerCommand(cmd) {
+    appendOutput(`guest@i_am_squardii:~$ ${cmd}`, 'user-cmd');
+    processCommand(cmd);
+    outputScreen.scrollTop = outputScreen.scrollHeight;
+}
 
 userInput.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
         const command = userInput.value.trim();
         if (command === '') return;
 
-        // Print user command to screen
         appendOutput(`guest@i_am_squardii:~$ ${command}`, 'user-cmd');
-        
-        // Process command
         processCommand(command);
-        
-        // Clear input field
         userInput.value = '';
-        
-        // Scroll to bottom
         outputScreen.scrollTop = outputScreen.scrollHeight;
     }
 });
@@ -36,7 +36,6 @@ function appendOutput(text, className = '') {
 function processCommand(cmd) {
     const lowerCmd = cmd.toLowerCase();
 
-    // Handle active mini-game states first
     if (gameState === 'HACKING') {
         handleHackingGame(lowerCmd);
         return;
@@ -68,7 +67,18 @@ STATUS:   Active Developer & Game Modder`);
             break;
 
         case 'clear':
-            outputScreen.innerHTML = '';
+            outputScreen.innerHTML = `
+            <h1 class="brand-title">SquadNexus</h1>
+            <p class="welcome-text">INITIALIZING SYSTEM KERNEL (SquadNexus OS v1.0)...</p>
+            <p class="welcome-text">Type commands below or click a quick action:</p>
+            <div class="quick-buttons">
+                <button onclick="triggerCommand('help')">[ HELP ]</button>
+                <button onclick="triggerCommand('about')">[ ABOUT ]</button>
+                <button onclick="triggerCommand('socials')">[ SOCIALS ]</button>
+                <button onclick="triggerCommand('play hack')">[ PLAY HACK ]</button>
+                <button onclick="triggerCommand('clear')">[ CLEAR ]</button>
+            </div>
+            <br>`;
             break;
 
         case 'socials':
@@ -87,7 +97,7 @@ PORTFOLIO: Active Web Platform & Game Repacks Storage`);
 
 function startHackingGame() {
     gameState = 'HACKING';
-    secretCode = Math.floor(1000 + Math.random() * 9000); // Generates 4-digit code
+    secretCode = Math.floor(1000 + Math.random() * 9000);
     appendOutput(`\n[SECURE FIREWALL ENGAGED]`);
     appendOutput(`A 4-digit mainframe security code has been generated.`);
     appendOutput(`Type a 4-digit number to crack the firewall (or type 'exit' to abort):`);
