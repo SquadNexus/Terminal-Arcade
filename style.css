@@ -92,6 +92,7 @@ body {
     display: flex;
     gap: 10px;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .quick-buttons button {
@@ -131,4 +132,20 @@ body {
     border: 2px solid #00ffcc;
     box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
     cursor: pointer;
+}
+
+/* Full-screen mode handling */
+#gameCanvas:fullscreen {
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: contain;
+    background: #050508;
+    border: none;
+    box-shadow: none;
+}
+#gameCanvas:-webkit-full-screen {
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: contain;
+    background: #050508;
 }
