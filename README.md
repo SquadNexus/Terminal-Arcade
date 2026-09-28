@@ -1,7 +1,7 @@
 # Terminal-Arca# SquadNexus // Terminal Arcade 🕹️
 
 ## 🌐 Live Website Access
-You can experience the live arcade directly in your browser by visiting the official deployment link: [https://squadnexus.github.io/Terminal-Arcade/]
+You can experience the live arcade directly in your browser by visiting the official deployment link: [https://squadnexus.github.io/Terminal-Arcade/] SquadNexus
 
 ---
 
