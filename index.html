@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQUADNEXUS // Terminal Arcade</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="crt-overlay"></div>
+    <div class="terminal-container">
+        <header class="terminal-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="title">squadnexus@terminal-v1.0.4:~</span>
+        </header>
+        
+        <div id="output-screen" class="output-screen">
+            <p class="welcome-text">INITIALIZING SYSTEM KERNEL...</p>
+            <p class="welcome-text">Type <span class="highlight">'help'</span> to view available commands and arcade protocols.</p>
+            <br>
+        </div>
+
+        <div class="input-line">
+            <span class="prompt">guest@squadnexus:~$</span>
+            <input type="text" id="user-input" autofocus autocomplete="off" spellcheck="false">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
