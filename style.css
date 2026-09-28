@@ -1,0 +1,104 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #050508;
+    color: #00ffcc;
+    font-family: 'Courier New', Courier, monospace;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* CRT Scanline and Flicker Effect */
+.crt-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 4px, 6px 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.terminal-container {
+    width: 90%;
+    max-width: 800px;
+    height: 550px;
+    background: rgba(10, 14, 20, 0.95);
+    border: 2px solid #00ffcc;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    z-index: 5;
+}
+
+.terminal-header {
+    background: #111827;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #00ffcc;
+}
+
+.dot {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+}
+.red { background-color: #ff5f56; }
+.yellow { background-color: #ffbd2e; }
+.green { background-color: #27c93f; }
+
+.title {
+    margin-left: 10px;
+    font-size: 13px;
+    color: #9ca3af;
+}
+
+.output-screen {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+.highlight {
+    color: #ff007f;
+    font-weight: bold;
+}
+
+.input-line {
+    display: flex;
+    padding: 15px 20px;
+    background: #080c14;
+    border-top: 1px solid #1f2937;
+    align-items: center;
+}
+
+.prompt {
+    color: #3b82f6;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+#user-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #00ffcc;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    outline: none;
+}
