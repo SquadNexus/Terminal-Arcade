@@ -74,6 +74,38 @@ body {
     white-space: pre-wrap;
 }
 
+.brand-title {
+    color: #00ffcc;
+    font-size: 28px;
+    font-family: 'Courier New', Courier, monospace;
+    margin-bottom: 10px;
+    text-shadow: 0 0 8px rgba(0, 255, 204, 0.5);
+}
+
+.quick-buttons {
+    margin: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.quick-buttons button {
+    background: #080c14;
+    color: #00ffcc;
+    border: 1px solid #00ffcc;
+    padding: 6px 12px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.quick-buttons button:hover {
+    background: #00ffcc;
+    color: #050508;
+}
+
 .highlight {
     color: #ff007f;
     font-weight: bold;
