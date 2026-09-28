@@ -1,10 +1,14 @@
 const outputScreen = document.getElementById('output-screen');
 const userInput = document.getElementById('user-input');
 
+let gameState = null; // Can be 'HACKING', 'GUESSING', or null
+let secretCode = null;
+let targetNumber = null;
+
 // Focus input whenever clicking anywhere on the terminal window
 document.addEventListener('click', () => userInput.focus());
 
-// Function to handle clicks from the no-code button panel
+// Function to handle clicks from the button panel
 function triggerCommand(cmd) {
     appendOutput(`guest@i_am_squardii:~$ ${cmd}`, 'user-cmd');
     processCommand(cmd);
@@ -33,6 +37,23 @@ function appendOutput(text, className = '') {
 function processCommand(cmd) {
     const lowerCmd = cmd.toLowerCase();
 
+    // Allow exiting active games
+    if (lowerCmd === 'exit' && gameState !== null) {
+        gameState = null;
+        appendOutput(`[ABORTED] Exited current game protocol.\n`);
+        return;
+    }
+
+    // Route inputs based on active game mode
+    if (gameState === 'HACKING') {
+        handleHackingGame(lowerCmd);
+        return;
+    }
+    if (gameState === 'GUESSING') {
+        handleGuessingGame(lowerCmd);
+        return;
+    }
+
     switch (lowerCmd) {
         case 'help':
             appendOutput(`AVAILABLE COMMANDS:
@@ -40,7 +61,8 @@ function processCommand(cmd) {
   about          - Display system operator info
   boot           - Replay system initialization sequence
   clear          - Clear terminal screen
-  play hack      - Launch automated cyber-heist simulation
+  play hack      - Launch 4-digit code cracking mini-game
+  play guess     - Launch 1-100 number guessing game
   socials        - Display network profiles & links
 `);
             break;
@@ -62,12 +84,13 @@ STATUS:   Active Developer & Game Modder`);
             outputScreen.innerHTML = `
             <h1 class="brand-title">SquadNexus</h1>
             <p class="welcome-text">INITIALIZING SYSTEM KERNEL (SquadNexus OS v1.0)...</p>
-            <p class="welcome-text">Type commands below or click a quick action:</p>
+            <p class="welcome-text">Select an arcade protocol or type commands below:</p>
             <div class="quick-buttons">
                 <button onclick="triggerCommand('help')">[ HELP ]</button>
                 <button onclick="triggerCommand('about')">[ ABOUT ]</button>
                 <button onclick="triggerCommand('socials')">[ SOCIALS ]</button>
                 <button onclick="triggerCommand('play hack')">[ PLAY HACK ]</button>
+                <button onclick="triggerCommand('play guess')">[ NUMBER GUESS ]</button>
                 <button onclick="triggerCommand('clear')">[ CLEAR ]</button>
             </div>
             <br>`;
@@ -79,7 +102,11 @@ PORTFOLIO: Active Web Platform & Game Repacks Storage`);
             break;
 
         case 'play hack':
-            runAutomatedHack();
+            startHackingGame();
+            break;
+
+        case 'play guess':
+            startGuessingGame();
             break;
 
         default:
@@ -87,23 +114,54 @@ PORTFOLIO: Active Web Platform & Game Repacks Storage`);
     }
 }
 
-function runAutomatedHack() {
+// --- MINI GAME 1: 4-Digit Code Cracking ---
+function startHackingGame() {
+    gameState = 'HACKING';
+    secretCode = Math.floor(1000 + Math.random() * 9000);
     appendOutput(`\n[SECURE FIREWALL ENGAGED]`);
-    appendOutput(`Initiating automated brute-force bypass sequence...`);
-    
-    // Simulate steps automatically using timeouts so it looks like a real live hack
-    setTimeout(() => {
-        appendOutput(`[>] Scanning mainframe ports... [OK]`);
-        outputScreen.scrollTop = outputScreen.scrollHeight;
-    }, 600);
+    appendOutput(`A 4-digit mainframe passcode has been generated.`);
+    appendOutput(`Type your 4-digit guess below (or type 'exit' to quit):`);
+}
 
-    setTimeout(() => {
-        appendOutput(`[>] Injecting payload into node sector 7... [OK]`);
-        outputScreen.scrollTop = outputScreen.scrollHeight;
-    }, 1200);
+function handleHackingGame(input) {
+    const guess = parseInt(input);
+    if (isNaN(guess) || input.length !== 4) {
+        appendOutput(`[ERROR] Invalid input. Enter a 4-digit number or type 'exit'.`);
+        return;
+    }
 
-    setTimeout(() => {
-        appendOutput(`[ACCESS GRANTED] Mainframe successfully compromised! 🎉\n`, 'highlight');
-        outputScreen.scrollTop = outputScreen.scrollHeight;
-    }, 1800);
+    if (guess === secretCode) {
+        appendOutput(`[ACCESS GRANTED] Mainframe successfully compromised! You win! 🎉\n`, 'highlight');
+        gameState = null;
+    } else if (guess < secretCode) {
+        appendOutput(`[ACCESS DENIED] Target code is HIGHER than ${guess}. Try again:`);
+    } else {
+        appendOutput(`[ACCESS DENIED] Target code is LOWER than ${guess}. Try again:`);
+    }
+}
+
+// --- MINI GAME 2: Number Guessing (1 to 100) ---
+function startGuessingGame() {
+    gameState = 'GUESSING';
+    targetNumber = Math.floor(Math.random() * 100) + 1;
+    appendOutput(`\n[NUMBER GUESSING PROTOCOL ACTIVE]`);
+    appendOutput(`I have picked a secret number between 1 and 100.`);
+    appendOutput(`Type your guess below (or type 'exit' to quit):`);
+}
+
+function handleGuessingGame(input) {
+    const guess = parseInt(input);
+    if (isNaN(guess)) {
+        appendOutput(`[ERROR] Please enter a valid number or type 'exit'.`);
+        return;
+    }
+
+    if (guess === targetNumber) {
+        appendOutput(`[CORRECT] You guessed the secret number! Arcade stage cleared! 🏆\n`, 'highlight');
+        gameState = null;
+    } else if (guess < targetNumber) {
+        appendOutput(`Too low! Try a higher number:`);
+    } else {
+        appendOutput(`Too high! Try a lower number:`);
+    }
 }
