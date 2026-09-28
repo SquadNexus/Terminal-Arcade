@@ -1,9 +1,6 @@
 const outputScreen = document.getElementById('output-screen');
 const userInput = document.getElementById('user-input');
 
-let gameState = null; 
-let secretCode = null;
-
 // Focus input whenever clicking anywhere on the terminal window
 document.addEventListener('click', () => userInput.focus());
 
@@ -36,11 +33,6 @@ function appendOutput(text, className = '') {
 function processCommand(cmd) {
     const lowerCmd = cmd.toLowerCase();
 
-    if (gameState === 'HACKING') {
-        handleHackingGame(lowerCmd);
-        return;
-    }
-
     switch (lowerCmd) {
         case 'help':
             appendOutput(`AVAILABLE COMMANDS:
@@ -48,7 +40,7 @@ function processCommand(cmd) {
   about          - Display system operator info
   boot           - Replay system initialization sequence
   clear          - Clear terminal screen
-  play hack      - Launch cyber-heist hacking mini-game
+  play hack      - Launch automated cyber-heist simulation
   socials        - Display network profiles & links
 `);
             break;
@@ -87,7 +79,7 @@ PORTFOLIO: Active Web Platform & Game Repacks Storage`);
             break;
 
         case 'play hack':
-            startHackingGame();
+            runAutomatedHack();
             break;
 
         default:
@@ -95,33 +87,23 @@ PORTFOLIO: Active Web Platform & Game Repacks Storage`);
     }
 }
 
-function startHackingGame() {
-    gameState = 'HACKING';
-    secretCode = Math.floor(1000 + Math.random() * 9000);
+function runAutomatedHack() {
     appendOutput(`\n[SECURE FIREWALL ENGAGED]`);
-    appendOutput(`A 4-digit mainframe security code has been generated.`);
-    appendOutput(`Type a 4-digit number to crack the firewall (or type 'exit' to abort):`);
-}
+    appendOutput(`Initiating automated brute-force bypass sequence...`);
+    
+    // Simulate steps automatically using timeouts so it looks like a real live hack
+    setTimeout(() => {
+        appendOutput(`[>] Scanning mainframe ports... [OK]`);
+        outputScreen.scrollTop = outputScreen.scrollHeight;
+    }, 600);
 
-function handleHackingGame(input) {
-    if (input === 'exit') {
-        gameState = null;
-        appendOutput(`[ABORTED] Exiting hacking protocol.\n`);
-        return;
-    }
+    setTimeout(() => {
+        appendOutput(`[>] Injecting payload into node sector 7... [OK]`);
+        outputScreen.scrollTop = outputScreen.scrollHeight;
+    }, 1200);
 
-    const guess = parseInt(input);
-    if (isNaN(guess) || input.length !== 4) {
-        appendOutput(`[ERROR] Invalid input. Please enter a 4-digit number or 'exit'.`);
-        return;
-    }
-
-    if (guess === secretCode) {
-        appendOutput(`[ACCESS GRANTED] Firewall bypassed successfully! You win! 🎉\n`, 'highlight');
-        gameState = null;
-    } else if (guess < secretCode) {
-        appendOutput(`[ACCESS DENIED] Target code is HIGHER than ${guess}. Try again:`);
-    } else {
-        appendOutput(`[ACCESS DENIED] Target code is LOWER than ${guess}. Try again:`);
-    }
+    setTimeout(() => {
+        appendOutput(`[ACCESS GRANTED] Mainframe successfully compromised! 🎉\n`, 'highlight');
+        outputScreen.scrollTop = outputScreen.scrollHeight;
+    }, 1800);
 }
