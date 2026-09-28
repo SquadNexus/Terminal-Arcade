@@ -17,16 +17,18 @@
         </header>
         
         <div id="output-screen" class="output-screen">
-            <p class="welcome-text">
-  ███████╗ ██████╗ ██╗   ██╗ █████╗ ██████╗ ███╗   ██╗███████╗██╗  ██╗██╗   ██╗███████╗
-  ██╔════╝██╔═══██╗██║   ██║██╔══██╗██╔══██╗████╗  ██║██╔════╝██║  ██║╚██  ██╔╝██╔════╝
-  ███████╗██║   ██║██║   ██║███████║██║  ██║██╔██╗ ██║█████╗  ██║  ██║ ╚████╔╝ ███████╗
-  ╚════██║██║   ██║██║   ██║██╔══██║██║  ██║██║╚██╗██║██╔══╝  ██║  ██║  ╚██╔╝  ╚════██║
-  ███████║╚██████╔╝╚██████╔╝██║  ██║██████╔╝██║ ╚████║███████╗╚██████╔╝   ██║   ███████║
-  ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═══╝╚══════╝ ╚═════╝    ╚═╝   ╚══════╝
-            </p>
+            <h1 class="brand-title">SquadNexus</h1>
             <p class="welcome-text">INITIALIZING SYSTEM KERNEL (SquadNexus OS v1.0)...</p>
-            <p class="welcome-text">Type <span class="highlight">'help'</span> to view available commands and arcade protocols.</p>
+            <p class="welcome-text">Type commands below or click a quick action:</p>
+            
+            <!-- Clickable Buttons for Easy Use -->
+            <div class="quick-buttons">
+                <button onclick="triggerCommand('help')">[ HELP ]</button>
+                <button onclick="triggerCommand('about')">[ ABOUT ]</button>
+                <button onclick="triggerCommand('socials')">[ SOCIALS ]</button>
+                <button onclick="triggerCommand('play hack')">[ PLAY HACK ]</button>
+                <button onclick="triggerCommand('clear')">[ CLEAR ]</button>
+            </div>
             <br>
         </div>
 
